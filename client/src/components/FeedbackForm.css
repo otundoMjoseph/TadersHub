@@ -7,6 +7,9 @@ body.active-modal {
     display: block;
     margin: 100px auto 0;
     font-size: 18px;
+    border-radius: 10px ;
+    background-color: #d1e3f3;
+    border: 1px solid #ccc;
 }
 
 .modal, .overlay {
@@ -31,7 +34,7 @@ body.active-modal {
     line-height: 1.4;
     background: #f1f1f1;
     padding: 14px 28px;
-    border-radius: 3px;
+    border-radius: 10px ;
     max-width: 600px;
     min-width: 300px;
 }
@@ -41,4 +44,39 @@ body.active-modal {
     top: 10px;
     right: 10px;
     padding: 5px 7px;
+}
+
+.modal-content label {
+    margin-bottom: 8px;
+    display: block;
+}
+
+
+.modal-content input[type="product_purchased"],
+.modal-content input[type="email"],
+.modal-content input[type="name"],
+.modal-content input[type="feedback"],
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color:  #d1e3f3;
+    color: rgb(13, 13, 13);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.modal-content button:hover {
+    background-color:  #27537c;
+    color: white;
 }

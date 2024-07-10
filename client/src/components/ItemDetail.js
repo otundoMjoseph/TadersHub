@@ -22,12 +22,7 @@ const ItemDetail = () => {
       <p>Category ID: {item.category_id}</p>
       <p>Price: ${item.price}</p>
       <h2>Feedbacks</h2>
- Item-branch
-      <FeedbackList itemId={id} />
-      
-=======
       {/* <FeedbackList itemId={id} /> */}
- main
     </div>
   );
 };

@@ -17,7 +17,7 @@
   }
   
   .category-list li button {
-    background-color: #007bff;
+    background-color: #d1e3f3;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -25,5 +25,5 @@
   }
   
   .category-list li button:hover {
-    background-color: #0056b3;
+    background-color: #27537c;
   }

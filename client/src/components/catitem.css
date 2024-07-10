@@ -19,14 +19,15 @@
   }
   
   .category-item button {
-    background-color: #007bff;
-    color: white;
+    background-color: #27537c;
+    color: rgb(13, 13, 13);
     border: none;
     padding: 5px 10px;
     cursor: pointer;
   }
   
   .category-item button:hover {
-    background-color: #0056b3;
+    background-color: #27537c;
+    color: white;
   }
   
