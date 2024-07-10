@@ -3,7 +3,7 @@ import './UserProfile.css';
 
 const UserProfile = () => {
   const defaultUserDetails = {
-    avatar: 'https://via.placeholder.com/150', // Placeholder image URL
+    avatar: 'https://via.placeholder.com/150', 
     username: 'Kimani Justin',
     email: 'kimani.justin@gmail.com',
     location: 'Nairobi',
