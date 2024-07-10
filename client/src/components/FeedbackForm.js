@@ -3,6 +3,10 @@ import "./FeedbackForm.css";
 
 function FeedbackForm() {
   const [modal, setModal] = useState(false);
+  const [productPurchased, setProductPurchased] = useState("");
+  const [usersname, setUsersname] = useState("");
+  const [email, setEmail] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   const toggleModal = () => {
     setModal(!modal);
@@ -11,10 +15,7 @@ function FeedbackForm() {
     setModal(!modal)
     alert("Thank you for your feedback!");
   };
-  const [productPurchased, setProductPurchased] = useState("");
-  const [usersname, setUsersname] = useState("");
-  const [email, setEmail] = useState("");
-  const [feedback, setFeedback] = useState("");
+
 
   if(modal) {
     document.body.classList.add('active-modal')
