@@ -18,7 +18,11 @@
   
   .category-list li button {
     background-color: #d1e3f3;
+ filtering
+    color: rgb(13, 13, 13);
+
     color: white;
+ main
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -26,4 +30,7 @@
   
   .category-list li button:hover {
     background-color: #27537c;
+ filtering
+    color: white;
+ main
   }
