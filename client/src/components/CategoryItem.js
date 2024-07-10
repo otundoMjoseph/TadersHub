@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './catitem.css';
 
 function CategoryItem({ categoryId }) {
   const [items, setItems] = useState([]);

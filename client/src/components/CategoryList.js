@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CategoryItem from './CategoryItem';
+import './catlist.css';
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);
