@@ -5,7 +5,7 @@ const UserProfile = () => {
   const defaultUserDetails = {
     avatar: 'https://via.placeholder.com/150', // Placeholder image URL
     username: 'Kimani Justin',
-    email: 'kimani.justin@example.com',
+    email: 'kimani.justin@gmail.com',
     location: 'Nairobi',
     bio: 'This is my bio',
   };
