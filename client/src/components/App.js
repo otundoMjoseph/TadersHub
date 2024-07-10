@@ -6,7 +6,7 @@ import ItemDetail from './components/ItemDetail';
 import ItemForm from './components/ItemForm';
 import OrderForm from './components/OrderForm';
 import OrderList from './components/OrderList';
-import UserDetail from './components/UserDetail';
+import UserProfile from "./UserProfile";
 import CategoryList from './components/CategoryList';
 import FeedbackForm from './components/FeedbackForm';
 import FeedbackList from './components/FeedbackList';
