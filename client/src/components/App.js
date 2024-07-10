@@ -1,16 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import NavBar from './NavBar';
-import ItemList from './ItemList';
-import ItemDetail from './ItemDetail';
-import ItemForm from './ItemForm';
-import OrderForm from './OrderForm'; 
-import OrderList from './OrderList'; 
-import CategoryList from './CategoryList';
-import FeedbackForm from './FeedbackForm';
-import Search from './Search';
-import CategoryItem from './CategoryItem';
-import './app.css';
+import NavBar from './components/NavBar';
+import ItemList from './components/ItemList';
+import ItemDetail from './components/ItemDetail';
+import ItemForm from './components/ItemForm';
+import OrderForm from './components/OrderForm';
+import OrderList from './components/OrderList';
+import UserProfile from "./UserProfile";
+import CategoryList from './components/CategoryList';
+import FeedbackForm from './components/FeedbackForm';
+import FeedbackList from './components/FeedbackList';
 
 function App() {
   return (
