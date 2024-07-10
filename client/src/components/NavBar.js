@@ -12,6 +12,7 @@ function NavBar() {
         <li><Link to="/categories">Categories</Link></li>
         <li><Link to="/search">Search</Link></li>
         <li><Link to="/leave-feedback">Leave Feedback</Link></li>
+        <li><Link to="/profile">Profile</Link></li>
       </ul>
     </nav>
   );
