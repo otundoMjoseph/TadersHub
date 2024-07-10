@@ -23,6 +23,7 @@ const ItemDetail = () => {
       <p>Price: ${item.price}</p>
       <h2>Feedbacks</h2>
       <FeedbackList itemId={id} />
+      
     </div>
   );
 };
