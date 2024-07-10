@@ -57,7 +57,7 @@ const UserProfile = () => {
   return (
     <div className="user-profile">
       <div className="profile-header">
-        <h1>User Profile</h1>
+        <h1>My Profile</h1>
         <button className="update-button" onClick={handleEditClick}>Update</button>
       </div>
       <div className="profile-details">
