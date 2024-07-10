@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './search.css';
 
 function Search() {
   const [query, setQuery] = useState('');
@@ -22,8 +23,8 @@ function Search() {
   };
 
   return (
-    <div>
-      <h1>Search</h1>
+    <div className="search-container">
+      {/* <h1>Search</h1> */}
       <input
         type="text"
         value={query}
@@ -31,7 +32,7 @@ function Search() {
         onKeyPress={handleKeyPress}
         placeholder='Search...'
       />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch} className="search-button">Search</button>
       <ul>
         {results.map(item => (
           <li key={item.id}>{item.title}</li>
