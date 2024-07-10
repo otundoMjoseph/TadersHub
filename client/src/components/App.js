@@ -19,12 +19,12 @@ function App() {
         <Route path="/items" component={ItemList} />
         <Route path="/item/:id" component={ItemDetail} />
         <Route path="/create-item" component={ItemForm} />
-        <Route path="/place-order" component={OrderForm} />
-        <Route path="/orders" component={OrderList} />
-        <Route path="/user/:id" component={UserDetail} />
+        <Route path="/place-order" component={OrderForm} /> 
+        <Route path="/orders" component={OrderList} /> 
         <Route path="/categories" component={CategoryList} />
-        <Route path="/feedback/:itemId" component={FeedbackList} />
+        <Route path="/categories/:categoryId" component={CategoryItem} />
         <Route path="/leave-feedback" component={FeedbackForm} />
+        <Route path="/search" component={Search} />
       </Switch>
     </div>
   );
