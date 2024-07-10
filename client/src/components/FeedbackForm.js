@@ -45,21 +45,21 @@ function FeedbackForm() {
                 <option ></option>
               ))}
             </select>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Name:</label>
             <input
             id="name"
             name="name" 
             type="name"
             value={usersname}
             onChange={(e) => setUsersname(e.target.value)}/>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email:</label>
             <input 
             id="email"
             name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)} />
-            <label htmlFor="feedback">Feedback</label>
+            <label htmlFor="feedback">Feedback:</label>
             <input
             id="feedback"
             name="feedback" 
