@@ -16,4 +16,4 @@ faker = "*"
 importlib-resources = "*"
 
 [requires]
-python_full_version = "3.8.12"
+python_full_version = "3.8.13"
