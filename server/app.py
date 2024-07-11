@@ -11,7 +11,9 @@ from flask_restful import Resource
 from sqlalchemy import MetaData
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
-import os
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import os,random
 
 # Init
 app = Flask(__name__)
@@ -24,6 +26,11 @@ DATABASE_URI = os.environ.get("DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'ins
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False
+app.config["JWT_SECRET_KEY"] = "fsbdgfnhgvjnvhmvh"+str(random.randint(1,1000000000000)) 
+app.config["SECRET_KEY"] = "JKSRVHJVFBSRDFV"+str(random.randint(1,1000000000000))
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+
 
 
 migrate = Migrate(app, db)
@@ -43,10 +50,92 @@ item_schema = ItemSchema()
 items_schema = ItemSchema(many=True)
 
 # routes to
-@app.route('/api/items', methods=['GET'])
+
+# Login endpoint for both users and Coach
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.json.get("username", None)
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if email is None:
+        return jsonify({"message": "Email is required"}), 400
+
+    # Check if it's a users login
+    users = User.query.filter_by(email=email).first()
+    if users and bcrypt.check_password_hash(users.password, password):
+        access_token = create_access_token(identity=users.id)
+        return jsonify({"access_token": access_token})
+
+
+
+    # If neither users nor coach found, return error
+    return jsonify({"message": "Invalid name, email, or password"}), 401
+
+
+# Get current user
+@app.route("/current_user", methods=["GET"])
+@jwt_required()
+def get_current_user():
+    current_user_id =  get_jwt_identity()
+    current_user = User.query.get(current_user_id)
+
+    if current_user:
+        return jsonify({"id":current_user.id, "name":current_user.username, "email":current_user.email}), 200
+    else:
+        jsonify({"error":"User not found"}), 404
+
+
+# Get all user
+@app.route('/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    user_list =[]
+    for user in users:
+        user_list.append({"id": user.id, "name": user.username, "email": user.email})
+
+    return jsonify(user_list),200
+
+# Get all items
+@app.route('/items', methods=['GET'])
 def get_items():
     items = Item.query.all()
-    return items_schema.jsonify(items)
+    item_list =[]
+    for item in items:
+        item_list.append({"id": item.id, "name": item.title, "description": item.description, "price": item.price, "category id":item.category_id, "image link": item.imageurl})
+
+    return jsonify(item_list),200
+
+# Get all categories
+@app.route('/categories', methods=['GET'])
+def get_categories():
+    categorys = Category.query.all()
+    category_list =[]
+    for category in categorys:
+        category_list.append({"id": category.id, "name": category.name})
+
+    return jsonify(category_list),200
+
+# Get all feedbacks
+@app.route('/feedbacks', methods=['GET'])
+def get_feedbacks():
+    feedbacks = Feedback.query.all()
+    feedback_list =[]
+    for feedback in feedbacks:
+        feedback_list.append({"id": feedback.id, "name": feedback.name, "email": feedback.email, "feedback": feedback.feedback, "item bought": feedback.item_id})
+
+    return jsonify(feedback_list),200
+
+# Get all orders
+@app.route('/orders', methods=['GET'])
+def get_orders():
+    orders = Order.query.all()
+    order_list =[]
+    for order in orders:
+        order_list.append({"id": order.id, "quantity": order.quantity, "status": order.status, "user": order.user_id})
+
+    return jsonify(order_list),200
+
 
 @app.route('/api/items/<int:id>', methods=['GET'])
 def get_item(id):
