@@ -92,7 +92,7 @@ class Feedback(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String, nullable=False)
     feedback = db.Column(db.String, nullable=False)
 
     #Foreign key to store the category id
@@ -101,4 +101,4 @@ class Feedback(db.Model):
     items = db.relationship('Item', back_populates="feedbacks")
 
     def __repr__(self):
-        return f'<Feedback {self.id}, {self.email}, {self.rating}, {self.feedback}>'
+        return f'<Feedback {self.id}, {self.email}, {self.name}, {self.feedback}>'
