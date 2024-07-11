@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import "./FeedbackForm.css";
-
 function FeedbackForm() {
   const [modal, setModal] = useState(false);
-  const [productPurchased, setProductPurchased] = useState("");
-  const [usersname, setUsersname] = useState("");
-  const [email, setEmail] = useState("");
-  const [feedback, setFeedback] = useState("");
-
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -15,20 +9,20 @@ function FeedbackForm() {
     setModal(!modal)
     alert("Thank you for your feedback!");
   };
-
-
+  const [productPurchased, setProductPurchased] = useState("");
+  const [usersname, setUsersname] = useState("");
+  const [email, setEmail] = useState("");
+  const [feedback, setFeedback] = useState("");
   if(modal) {
     document.body.classList.add('active-modal')
   } else {
     document.body.classList.remove('active-modal')
   }
-
   return (
     <>
       <button onClick={toggleModal} className="btn-modal">
         Leave us your feedback
       </button>
-
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
@@ -67,7 +61,6 @@ function FeedbackForm() {
             type="feedback"
             value={feedback} 
             onChange={(e) => setFeedback(e.target.value)}/>
-
             <button onClick={submitModal}>
               Submit feedback
             </button>
@@ -77,5 +70,4 @@ function FeedbackForm() {
     </>
   );
 }
-
 export default FeedbackForm;
