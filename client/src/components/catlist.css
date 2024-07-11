@@ -1,3 +1,33 @@
+.category-list {
+  display: flex;
+  justify-content: center;
+}
+
+filtering
+.category-list ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.category-list li {
+  margin: 5px;
+}
+
+.category-list li button {
+  background-color: #d1e3f3;
+  color: rgb(13, 13, 13);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.category-list li button:hover {
+  background-color: #27537c;
+  color: white;
+}
 
   .category-list {
     display: flex;
@@ -28,3 +58,4 @@
     background-color: #27537c;
     color: white;
   }
+ main
