@@ -5,7 +5,7 @@ from random import randint, choice
 from faker import Faker
 
 # Local imports
-from app import app, db
+from app import app, db, bcrypt
 from models import User, Category, Item, Order, Feedback
 
 fake = Faker()
@@ -16,7 +16,7 @@ def seed_users():
         user = User(
             username=fake.user_name(),
             email=fake.email(),
-            password=fake.password()
+            password=bcrypt.generate_password_hash("password").decode("utf-8"),
         )
         users.append(user)
         db.session.add(user)

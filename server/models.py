@@ -28,6 +28,9 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
+    def __repr__(self):
+        return f'<User {self.username}, {self.email}, {self.password}>'
+
     #One to many with the order 
     orders = db.relationship('Order', back_populates="user", cascade = "all,delete-orphan")
 
