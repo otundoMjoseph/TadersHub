@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NavBar from './NavBar';
 import ItemList from './ItemList';
@@ -11,9 +11,22 @@ import FeedbackForm from './FeedbackForm';
 import Search from './Search';
 import CategoryItem from './CategoryItem';
 import UserProfile from './UserProfile';
+import Authentication from './Authentication';
 import './app.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = (user) => {
+    // Handle successful login, e.g., save user info to localStorage, update state
+    setIsLoggedIn(true);
+  };
+
+  const handleSignup = (user) => {
+    // Handle successful signup, e.g., save user info to localStorage, update state
+    setIsLoggedIn(true);
+  };
+
   return (
     <div>
       <NavBar />
@@ -27,7 +40,15 @@ function App() {
         <Route path="/categories/:categoryId" component={CategoryItem} />
         <Route path="/leave-feedback" component={FeedbackForm} />
         <Route path="/search" component={Search} />
-        <Route path="/profile" component={UserProfile} />
+        <Route path="/profile">
+          <UserProfile isLoggedIn={isLoggedIn} />
+        </Route>
+        <Route path="/login">
+          <Authentication onLogin={handleLogin} />
+        </Route>
+        <Route path="/signup">
+          <Authentication onSignup={handleSignup} />
+        </Route>
       </Switch>
     </div>
   );

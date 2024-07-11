@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+authentication
+import './itemform.css';
+ main
 
 function ItemForm() {
   const [name, setName] = useState('');
@@ -9,7 +12,11 @@ function ItemForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const item = { name, description, price, category_id };
+ authentication
+
+
     
+ main
     fetch('/items', {
       method: 'POST',
       headers: {
@@ -17,6 +24,41 @@ function ItemForm() {
       },
       body: JSON.stringify(item),
     })
+ authentication
+      .then(response => response.json())
+      .then(data => console.log(data));
+  };
+
+  return (
+    <div className="item-form-container">
+      <div className="item-form-header">
+        <h2>Create New Item</h2>
+      </div>
+      <form className="item-form" onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={name} onChange={e => setName(e.target.value)} />
+        </label>
+        <label>
+          Description:
+          <textarea value={description} onChange={e => setDescription(e.target.value)} />
+        </label>
+        <label>
+          Price:
+          <input type="number" value={price} onChange={e => setPrice(e.target.value)} />
+        </label>
+        <label>
+          Category ID:
+          <input type="number" value={category_id} onChange={e => setCategoryId(e.target.value)} />
+        </label>
+        <button type="submit">Create Item</button>
+      </form>
+    </div>
+  );
+}
+
+export default ItemForm;
+
     .then(response => response.json())
     .then(data => console.log(data));
   };
@@ -45,3 +87,4 @@ function ItemForm() {
 }
 
 export default ItemForm;
+ main
