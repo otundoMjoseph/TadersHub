@@ -1,8 +1,8 @@
- filtering
 .category-item {
   margin: 20px auto;
   padding: 10px;
   max-width: 800px;
+  border: 1px solid #ddd; /* Optional border for visual separation */
 }
 
 .category-item h2 {
@@ -19,8 +19,7 @@
 }
 
 .category-item button {
-  background-color: #d1e3f3;;
-  color: rgb(13, 13, 13);
+  background: #d1e3f3 rgb(13, 13, 13); /* Shorthand for background properties */
   border: none;
   padding: 5px 10px;
   cursor: pointer;
@@ -30,38 +29,3 @@
   background-color: #27537c;
   color: white;
 }
-
- 
-  .category-item {
-    margin: 20px auto;
-    padding: 10px;
-    max-width: 800px;
-  }
-  
-  .category-item h2 {
-    margin-bottom: 10px;
-  }
-  
-  .category-item ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .category-item li {
-    margin-bottom: 10px;
-  }
-  
-  .category-item button {
-    background-color: #d1e3f3;;
-    color: rgb(13, 13, 13);
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .category-item button:hover {
-    background-color: #27537c;
-    color: white;
-  }
-  
- main

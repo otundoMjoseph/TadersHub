@@ -1,5 +1,4 @@
 .search-container {
- filtering
   display: flex;
   flex-grow: 1;
   margin: 0 150px;
@@ -40,7 +39,7 @@
   margin: 10px 0;
 }
 
-    display: flex;
+    {display: flex;
     flex-grow: 1;
     margin: 0 150px;
   }
@@ -79,4 +78,4 @@
   .search-results li {
     margin: 10px 0;
   }
- main
+
