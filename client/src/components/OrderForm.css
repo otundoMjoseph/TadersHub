@@ -1,0 +1,44 @@
+/* @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'); */
+
+.ItemName{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+ .Quantity {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  
+  .Orderbtn{
+    width: 100%;
+    background-color: #d1e3f3;
+    color: rgb(13, 13, 13);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+
+  .Orderbtn:hover{
+    background-color: #27537c;
+    color: white;
+  }
+  
+  .OrderForm {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
