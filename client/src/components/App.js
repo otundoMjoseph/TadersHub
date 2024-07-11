@@ -10,6 +10,7 @@ import CategoryList from './CategoryList';
 import FeedbackForm from './FeedbackForm';
 import Search from './Search';
 import CategoryItem from './CategoryItem';
+import UserProfile from './UserProfile';
 import './app.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/categories/:categoryId" component={CategoryItem} />
         <Route path="/leave-feedback" component={FeedbackForm} />
         <Route path="/search" component={Search} />
+        <Route path="/profile" component={UserProfile} />
       </Switch>
     </div>
   );
