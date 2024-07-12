@@ -11,7 +11,7 @@ function CategoryItem({ categoryId }) {
   }, [categoryId]);
 
   const fetchItemsForCategory = (categoryId) => {
-    fetch(`http://localhost:5000/categories/${categoryId}`)
+    fetch(`https://taders-backend-12.onrender.com/categories/${categoryId}`)
       .then(res => res.json())
       .then(data => {
         console.log(`Items for category ${categoryId}:`, data.items);

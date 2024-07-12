@@ -29,7 +29,7 @@ const ItemList = () => {
           <li key={item.id}>
             <Link to={`/items/${item.id}`}>
               <h2>{item.name}</h2>
-              <img src={item.image_url} alt={item.name} style={{ maxWidth: '200px' }} />
+              <img src={item.imageurl} alt={item.name} style={{ maxWidth: '200px' }} />
               <p>Price: ${item.price}</p>
             </Link>
             <button onClick={() => deleteItem(item.id)}>Delete</button>
