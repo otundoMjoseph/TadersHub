@@ -1,38 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import './catitem.css';
 
-function CategoryItem({ categoryId }) {
+function CategoryItem() {
+  const [categories, setCategories] = useState([]);
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedItems, setSelectedItems] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
-    const fetchItemsForCategory = (categoryId) => {
+    const fetchCategories = async () => {
       setLoading(true);
-      fetch(`https://taders-backend-12.onrender.com/categories/${categoryId}`)
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(`Error fetching items for category ${categoryId}`);
-          }
-          return res.json();
-        })
-        .then(data => {
-          console.log(`Items for category ${categoryId}:`, data.items);
-          setItems(data.items);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error(`Error fetching items for category ${categoryId}:`, error);
-          setError(error.message);
-          setLoading(false);
-        });
+      try {
+        const res = await fetch('https://taders-backend-12.onrender.com/categories');
+        const data = await res.json();
+        setCategories(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setError(error.message);
+        setLoading(false);
+      }
     };
 
-    if (categoryId) {
-      fetchItemsForCategory(categoryId);
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchItemsForCategory = async (categoryId) => {
+      setLoading(true);
+      try {
+        const res = await fetch(`https://taders-backend-12.onrender.com/categories/${categoryId}`);
+        const data = await res.json();
+        console.log(`Items for category ${categoryId}:`, data.items);
+        setItems(data.items || []); // Ensure that items is an array
+        setLoading(false);
+      } catch (error) {
+        console.error(`Error fetching items for category ${categoryId}:`, error);
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    if (selectedCategory) {
+      fetchItemsForCategory(selectedCategory);
     }
-  }, [categoryId]);
+  }, [selectedCategory]);
 
   const handleCheckboxChange = (id) => {
     setSelectedItems(prevState => ({
@@ -41,9 +55,21 @@ function CategoryItem({ categoryId }) {
     }));
   };
 
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
   return (
     <div>
       <h1>Category Items</h1>
+      <select value={selectedCategory} onChange={handleCategoryChange}>
+        <option value="">Select a Category</option>
+        {categories.map(category => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
+      </select>
       {error && <p className="error">Error: {error}</p>}
       <ul>
         {loading ? (
