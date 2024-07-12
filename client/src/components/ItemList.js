@@ -5,13 +5,13 @@ const ItemList = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch('/api/items')
+    fetch('https://taders-backend-12.onrender.com/items')
       .then(response => response.json())
       .then(data => setItems(data));
   }, []);
 
   const deleteItem = (id) => {
-    fetch(`/api/items/${id}`, {
+    fetch(`https://taders-backend-12.onrender.com/items/${id}`, {
       method: 'DELETE',
     })
       .then(response => {
