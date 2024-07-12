@@ -11,7 +11,7 @@ function CategoryList() {
   }, []);
 
   const fetchCategories = () => {
-    fetch('http://localhost:5000/categories')
+    fetch('https://taders-backend-12.onrender.com/categories')
       .then(res => res.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));

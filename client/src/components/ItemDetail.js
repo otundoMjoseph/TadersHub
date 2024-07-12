@@ -7,7 +7,7 @@ const ItemDetail = () => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/items/${id}`)
+    fetch(`https://taders-backend-12.onrender.com/items/${id}`)
       .then(response => response.json())
       .then(data => setItem(data));
   }, [id]);

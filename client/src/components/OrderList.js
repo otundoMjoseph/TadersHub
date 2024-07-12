@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
+import './OrderList.css';
 function OrderList() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch('https://api.example.com/orders')
+    fetch('https://taders-backend-12.onrender.com/orders')
       .then(response => response.json())
       .then(data => {
-        setOrders(data.orders);
+        setOrders(data);
       })
       .catch(error => {
         console.error('Error fetching orders:', error);
@@ -20,12 +20,13 @@ function OrderList() {
       {orders.length === 0 ? (
         <p>No orders pending.</p>
       ) : (
-        <ul>
+        <ul className="list-group">
           {orders.map(order => (
-            <li key={order.id}>
+            <li className="list-group-item" key={order.id}>
               <strong>Order ID:</strong> {order.id}<br />
-              <strong>Item Name:</strong> {order.itemName}<br />
-              <strong>Quantity:</strong> {order.quantity}
+              <strong>Quantity:</strong> {order.quantity}<br />
+              <strong>Status:</strong> {order.status}<br />
+              <strong>User ID:</strong> {order.user}
             </li>
           ))}
         </ul>

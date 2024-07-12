@@ -13,7 +13,7 @@ function Authentication({ onClose, onLoginSuccess }) {
     };
 
     const handleLogin = () => {
-        fetch('/api/login', {
+        fetch('https://taders-backend-12.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

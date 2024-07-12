@@ -37,6 +37,18 @@ function OrderForm() {
           />
         </label>
         <br />
+        <label>
+          Category ID:
+          <input
+            className="Quantity"
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(parseInt(e.target.value))}
+            min="1"
+            required
+          />
+        </label>
+        <br />
         <button className="Orderbtn" type="submit">Place Order</button>
       </form>
     </div>
