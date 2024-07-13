@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <nav>
       <ul>
-         <li><Link to="/profile">Profile</Link></li>
+         <li><Link to="/profile">Signup/Login</Link></li>
         <li><Link to="/items">Items</Link></li>
         <li><Link to="/create-item">Create Item</Link></li>
         {/* <li><Link to="/place-order">Place Order</Link></li> */}
