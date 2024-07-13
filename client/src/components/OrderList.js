@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
+import Authentication from './Authentication';
+
 function OrderList() {
   const [orders, setOrders] = useState([]);
 
@@ -15,7 +17,7 @@ function OrderList() {
   }, []); 
 
   return (
-    <div>
+    <div className="list-container">
       <h2>Orders Pending</h2>
       {orders.length === 0 ? (
         <p>No orders pending.</p>

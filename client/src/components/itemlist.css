@@ -1,0 +1,83 @@
+.item-list-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin:0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    
+}
+
+.item-card {
+    background: #e1dede;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(13, 9, 9, 0.1);
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 3 3 250px; /* Flex properties to evenly size items */
+    /* margin-top: 100px; */
+}
+
+.item-card img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 5px; 
+    height: 120px; 
+    object-fit: cover;
+}
+
+.item-card p {
+    font-size: 12px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.item-card .price {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.item-card .description {
+    font-size: 12px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-card .title{
+    margin-bottom: -20px;
+    font-size: 15px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.item-card button {
+    padding: 8px 16px;
+    background-color: #d1e3f3;
+    color: rgb(13, 13, 13);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    margin-top: auto;
+}
+
+.item-card button:hover {
+    background-color: #27537c;
+    color: white;
+}
+
+.item-card a {
+    text-decoration: none;
+    color: inherit;
+}

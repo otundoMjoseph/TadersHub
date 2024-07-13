@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './itemlist.css';
 
 const ItemImage = ({ src, alt }) => {
   const handleImageError = (e) => {
     e.target.src = 'https://t3.ftcdn.net/jpg/00/70/61/08/360_F_70610892_f7pJ3mCdG32mF6k6bEVKjJhwyvcn4c8a.webp';
   };
 
-  return <img src={src} alt={alt} onError={handleImageError} style={{ maxWidth: '200px' }} />;
+  return <img src={src} alt={alt} onError={handleImageError} />;
 };
 
 const ItemList = () => {
@@ -38,24 +39,22 @@ const ItemList = () => {
   };
 
   return (
-    <div>
-      <h1>Products</h1>
-      <ul>
-        {items.length > 0 ? (
-          items.map(item => (
-            <li key={item.id}>
-              <Link to={`/items/${item.id}`}>
-                <h2>{item.name}</h2>
-                <ItemImage src={item.imageurl} alt={item.name} />
-                <p>Price: ${item.price}</p>
-              </Link>
-              <button onClick={() => deleteItem(item.id)}>Delete</button>
-            </li>
-          ))
-        ) : (
-          <p>No items available</p>
-        )}
-      </ul>
+    <div className="item-list-container">
+      {items.length > 0 ? (
+        items.map(item => (
+          <div key={item.id} className="item-card">
+            <Link to={`/items/${item.id}`}>
+              <ItemImage src={item.imageurl} alt={item.name} />
+              <p className="title">{item.title}</p>
+              <p className="price">${item.price}</p>
+              <p className="description">{item.description}</p>
+            </Link>
+            <button onClick={() => deleteItem(item.id)}>Delete</button>
+          </div>
+        ))
+      ) : (
+        <p>No items available</p>
+      )}
     </div>
   );
 };
