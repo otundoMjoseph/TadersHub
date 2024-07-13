@@ -1,18 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FeedbackForm.css";
+import FeedbackList from "./FeedbackList";
+
 function FeedbackForm() {
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
   };
-  const submitModal =() => {
+  
+  const [productPurchased, setProductPurchased] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [item, setItem] = useState([]);
+  useEffect(() => {
+    fetch('https://taders-backend-12.onrender.com/items')
+      .then(response => response.json())
+      .then(data => setItem(data));
+  }, []);
+  function saveFeedback(){
+    
+    let data = { name ,email, feedback };
+
+    fetch('https://taders-backend-12.onrender.com/addfeedbacks', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        data
+      )
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Response data:", data);
+      // Assuming data is returned in the format you expect
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    })
     setModal(!modal)
     alert("Thank you for your feedback!");
   };
-  const [productPurchased, setProductPurchased] = useState("");
-  const [usersname, setUsersname] = useState("");
-  const [email, setEmail] = useState("");
-  const [feedback, setFeedback] = useState("");
+
   if(modal) {
     document.body.classList.add('active-modal')
   } else {
@@ -20,9 +55,11 @@ function FeedbackForm() {
   }
   return (
     <>
+    
       <button onClick={toggleModal} className="btn-modal">
         Leave us your feedback
       </button>
+      
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
@@ -34,10 +71,9 @@ function FeedbackForm() {
             name="product_purchased"
             value={productPurchased}
             onChange={(e) => setProductPurchased(e.target.value)}>
-              !this is where i should change to show the item which was purchased
               <option value="">Select purchased product</option>
-              {(() => (
-                <option ></option>
+              {item.map((item) => (
+                <option >{item.name}</option>
               ))}
             </select>
             <label htmlFor="name">Name:</label>
@@ -45,8 +81,8 @@ function FeedbackForm() {
             id="name"
             name="name" 
             type="name"
-            value={usersname}
-            onChange={(e) => setUsersname(e.target.value)}/>
+            value={name}
+            onChange={(e) => setName(e.target.value)}/>
             <label htmlFor="email">Email:</label>
             <input 
             id="email"
@@ -61,13 +97,16 @@ function FeedbackForm() {
             type="feedback"
             value={feedback} 
             onChange={(e) => setFeedback(e.target.value)}/>
-            <button onClick={submitModal}>
+            <button onClick={saveFeedback}>
               Submit feedback
             </button>
           </div>
         </div>
       )}
+      <FeedbackList/>
     </>
   );
 }
+
+
 export default FeedbackForm;
