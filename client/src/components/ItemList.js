@@ -15,7 +15,7 @@ const ItemImage = ({ src, alt }) => {
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]); // State for filtered items
+  const [filteredItems, setFilteredItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,7 +29,7 @@ const ItemList = () => {
       })
       .then(data => {
         setItems(data);
-        setFilteredItems(data); // Initialize filteredItems with all items
+        setFilteredItems(data);
         setLoading(false);
       })
       .catch(error => {
@@ -46,18 +46,15 @@ const ItemList = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        // Update state by filtering out the deleted item
         setItems(items.filter(item => item.id !== id));
-        setFilteredItems(filteredItems.filter(item => item.id !== id)); // Also update filteredItems
+        setFilteredItems(filteredItems.filter(item => item.id !== id));
       })
       .catch(error => {
         console.error('There was a problem with the delete operation:', error);
-        // Optionally handle error state here
       });
   };
 
   const placeOrder = (itemId) => {
-    // Find the item details based on itemId
     const selectedItem = items.find(item => item.id === itemId);
 
     if (!selectedItem) {
@@ -65,43 +62,36 @@ const ItemList = () => {
       return;
     }
 
-    // Post order with item details
     fetch('https://taders-backend-12.onrender.com/addorders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        item_id: selectedItem.id,
-        item_details: {
-          title: selectedItem.title,
-          description: selectedItem.description,
-          imageurl: selectedItem.imageurl,
-          price: selectedItem.price,
-        },
-        quantity: 1, // Assuming quantity is fixed for now
-        // Additional data if needed
+        id: selectedItem.id,
+        title: selectedItem.title,
+        description: selectedItem.description,
+        price: selectedItem.price,
+        imageurl: selectedItem.imageurl,
+        category_id: selectedItem.category_id
       }),
     })
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        // Handle success (e.g., show success message, update UI)
         console.log('Order placed successfully');
+        // Optionally update UI or notify user
       })
       .catch(error => {
         console.error('There was a problem with placing the order:', error);
-        // Optionally handle error state here
       });
   };
 
   const handleSearch = (query) => {
     if (query.trim() === '') {
-      // If query is empty, reset filteredItems to show all items
       setFilteredItems(items);
     } else {
-      // Filter items based on the query
       const filtered = items.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase())
       );
@@ -119,7 +109,7 @@ const ItemList = () => {
 
   return (
     <div>
-      <Search onSearch={handleSearch} /> {/* Render the Search component and pass handleSearch as prop */}
+      <Search onSearch={handleSearch} />
       <div className="item-list-container">
         {filteredItems.length > 0 ? (
           filteredItems.map(item => (
@@ -131,7 +121,7 @@ const ItemList = () => {
                 <p className="description">{item.description}</p>
               </Link>
               <button onClick={() => deleteItem(item.id)}>Not interested?</button>
-              <button onClick={() => placeOrder(item.id)}>Place Order</button> {/* Place Order button */}
+              <button onClick={() => placeOrder(item.id)}>Place Order</button>
             </div>
           ))
         ) : (

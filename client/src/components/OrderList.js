@@ -2,67 +2,56 @@
 
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
-// import Authentication from './Authentication';
 
 function OrderList() {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://taders-backend-12.onrender.com/orders')
-      .then(response => response.json())
-      .then(data => {
-        setOrders(data);
-      })
-      .catch(error => {
-        console.error('Error fetching orders:', error);
-      });
-  }, []); 
+    fetchOrders();
+  }, []);
 
-  // Function to fetch item details for an order
-  const fetchItemDetails = (itemId) => {
-    return fetch(`https://taders-backend-12.onrender.com/items/${itemId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch item details');
-        }
-        return response.json();
-      })
-      .catch(error => {
-        console.error('Error fetching item details:', error);
-        return null;
-      });
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch('https://taders-backend-12.onrender.com/orders');
+      if (!response.ok) {
+        throw new Error('Failed to fetch orders');
+      }
+      const data = await response.json();
+      setOrders(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
   };
 
-  // Function to render order details with item information
   const renderOrders = () => {
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+
+    if (error) {
+      return <p>Error: {error.message}</p>;
+    }
+
     if (orders.length === 0) {
       return <p>No orders pending.</p>;
     }
 
     return (
       <ul className="list-group">
-        {orders.map(async (order) => {
-          // Fetch item details for the order
-          const itemDetails = await fetchItemDetails(order.item_id);
-          
-          return (
-            <li className="list-group-item" key={order.id}>
-              <strong>Order ID:</strong> {order.id}<br />
-              <strong>Quantity:</strong> {order.quantity}<br />
-              <strong>Status:</strong> {order.status}<br />
-              <strong>User ID:</strong> {order.user}<br />
-              {itemDetails && (
-                <div>
-                  <strong>Item Details:</strong><br />
-                  <p><strong>Title:</strong> {itemDetails.title}</p>
-                  <p><strong>Description:</strong> {itemDetails.description}</p>
-                  <p><strong>Price:</strong> ${itemDetails.price}</p>
-                  <img src={itemDetails.imageurl} alt={itemDetails.title} style={{ maxWidth: '200px' }} />
-                </div>
-              )}
-            </li>
-          );
-        })}
+        {orders.map(order => (
+          <li className="list-group-item" key={order.id}>
+            <strong>Order ID:</strong> {order.id}<br />
+            <strong>Title:</strong> {order.title}<br />
+            <strong>Description:</strong> {order.description}<br />
+            <strong>Price:</strong> ${order.price}<br />
+            <strong>Category ID:</strong> {order.category_id}<br />
+            <img src={order.imageurl} alt={order.title} style={{ maxWidth: '200px' }} />
+          </li>
+        ))}
       </ul>
     );
   };
