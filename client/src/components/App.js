@@ -4,11 +4,11 @@ import NavBar from './NavBar';
 import ItemList from './ItemList';
 import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
-import OrderForm from './OrderForm'; 
+// import OrderForm from './OrderForm'; 
 import OrderList from './OrderList'; 
 import CategoryList from './CategoryList';
 import FeedbackForm from './FeedbackForm';
-import Search from './Search';
+// import Search from './Search';
 import CategoryItem from './CategoryItem';
 import UserProfile from './UserProfile';
 import Authentication from './Authentication';
@@ -34,12 +34,12 @@ function App() {
         <Route path="/items" component={ItemList} />
         <Route path="/item/:id" component={ItemDetail} />
         <Route path="/create-item" component={ItemForm} />
-        <Route path="/place-order" component={OrderForm} /> 
+        {/* <Route path="/place-order" component={OrderForm} />  */}
         <Route path="/orders" component={OrderList} /> 
         <Route path="/categories" component={CategoryList} />
         <Route path="/categories/:categoryId" component={CategoryItem} />
         <Route path="/leave-feedback" component={FeedbackForm} />
-        <Route path="/search" component={Search} />
+        {/* <Route path="/search" component={Search} /> */}
         <Route path="/profile">
           <UserProfile isLoggedIn={isLoggedIn} />
         </Route>
