@@ -1,30 +1,23 @@
+// search.js
+
 import React, { useState } from 'react';
 import './search.css';
 
-function Search() {
+function Search({ onSearch }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
 
   const handleSearch = () => {
-    fetchResults(query)
-  };
-
-  const fetchResults = (query) => {
-    fetch(`http://localhost:5000/search?query=${query}`)
-    .then(res => res.json())
-    .then(data => setResults(data))
-    .catch(error => console.error('Error fetching search results', error))
+    onSearch(query);
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      fetchResults(query);
+      onSearch(query);
     }
   };
 
   return (
     <div className="search-container">
-      {/* <h1>Search</h1> */}
       <input
         type="text"
         value={query}
@@ -33,11 +26,6 @@ function Search() {
         placeholder='Search...'
       />
       <button onClick={handleSearch} className="search-button">Search</button>
-      <ul>
-        {results.map(item => (
-          <li key={item.id}>{item.title}</li>
-        ))}
-      </ul>
     </div>
   );
 }
