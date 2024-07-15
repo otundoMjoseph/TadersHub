@@ -68,12 +68,11 @@ const ItemList = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: selectedItem.id,
         title: selectedItem.title,
         description: selectedItem.description,
-        price: selectedItem.price,
+        price: selectedItem.price.toString(),
         imageurl: selectedItem.imageurl,
-        category_id: selectedItem.category_id
+        category_id: selectedItem.category_id,
       }),
     })
       .then(response => {

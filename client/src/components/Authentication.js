@@ -14,56 +14,82 @@ function Authentication({ onClose, onLoginSuccess }) {
 
     const handleLogin = () => {
         fetch('https://taders-backend-12.onrender.com/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Login failed');
-            }
-        })
-        .then(data => {
-            console.log('Login successful:', data);
-            onLoginSuccess();
-            onClose();
-        })
-        .catch(error => {
-            console.error('Error during login:', error);
-            setError('Invalid email or password');
-        });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Login failed');
+                }
+            })
+            .then(data => {
+                console.log('Login successful:', data);
+                localStorage.setItem('token', data.token);
+                fetchUserData(data.token);
+            })
+            .catch(error => {
+                console.error('Error during login:', error);
+                setError('Invalid email or password');
+            });
     };
 
     const handleSignup = () => {
-        fetch('/api/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, password }),
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Signup failed');
-            }
-        })
-        .then(data => {
-            console.log('Signup successful:', data);
-            onLoginSuccess();
-            onClose();
-        })
-        .catch(error => {
-            console.error('Error during signup:', error);
-            setError('Signup failed');
-        });
+        fetch('https://taders-backend-12.onrender.com/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, password }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then(error => {
+                        throw new Error(error.message || 'Signup failed');
+                    });
+                }
+            })
+            .then(data => {
+                console.log('Signup successful:', data);
+                onLoginSuccess(data); // Pass user data to parent component
+                onClose();
+            })
+            .catch(error => {
+                console.error('Error during signup:', error);
+                setError(error.message || 'Signup failed');
+            });
     };
 
+    const fetchUserData = (token) => {
+        fetch('https://taders-backend-12.onrender.com/current_user', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch user data');
+                }
+            })
+            .then(data => {
+                console.log('User data:', data);
+                onLoginSuccess(data); // Pass user data to parent component
+                onClose();
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    };
 
     const switchAction = () => {
         setAction(action === 'Login' ? 'Sign Up' : 'Login');

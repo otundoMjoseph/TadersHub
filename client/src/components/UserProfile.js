@@ -5,10 +5,10 @@ import Authentication from './Authentication';
 const UserProfile = () => {
   const defaultUserDetails = {
     avatar: 'https://via.placeholder.com/150',
-    username: 'Kimani Justin',
-    email: 'kimani.justin@gmail.com',
-    location: 'Nairobi',
-    bio: 'This is my bio',
+    username: '',
+    email: '',
+    location: '',
+    bio: '',
   };
 
   const [isEditing, setIsEditing] = useState(false);
@@ -26,6 +26,42 @@ const UserProfile = () => {
   useEffect(() => {
     localStorage.setItem('userDetails', JSON.stringify(userDetails));
   }, [userDetails]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUserData(token);
+    }
+  }, [isLoggedIn]);
+
+  const fetchUserData = (token) => {
+    fetch('https://taders-backend-12.onrender.com/current_user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch user data');
+        }
+      })
+      .then(data => {
+        setUserDetails(prevDetails => ({
+          ...prevDetails,
+          username: data.name,
+          email: data.email,
+          location: data.location,
+          bio: data.bio,
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  };
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -84,12 +120,13 @@ const UserProfile = () => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true');
     setShowAuthPopup(false);
-    setShowProfileModal(true); // Open profile modal after successful login
+    setShowProfileModal(true);
   };
 
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token'); // Clear token on logout
     setShowProfileModal(false);
   };
 
