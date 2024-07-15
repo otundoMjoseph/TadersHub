@@ -1,0 +1,30 @@
+.feedback-list-container {
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .feedback-item {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  
+  .feedback-item h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .feedback-item h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .feedback-item p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  

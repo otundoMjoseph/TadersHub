@@ -52,38 +52,51 @@ items_schema = ItemSchema(many=True)
 # routes to
 
 # Login endpoint for both users and Coach
-@app.route("/login", methods=["POST"])
+@app.route('/signup', methods=['POST'])
+def signup():
+    name = request.json.get('name', None)
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+
+    if not name or not email or not password:
+        return jsonify({"message": "Name, email, and password are required"}), 400
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    new_user = User(username=name, email=email, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+
+    access_token = create_access_token(identity=new_user.id)
+    return jsonify({"access_token": access_token, "user": {"id": new_user.id, "username": new_user.username, "email": new_user.email}}), 200
+
+@app.route('/login', methods=['POST'])
 def login():
-    username = request.json.get("username", None)
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
 
-    if email is None:
-        return jsonify({"message": "Email is required"}), 400
+    if not email or not password:
+        return jsonify({"message": "Email and password are required"}), 400
 
-    # Check if it's a users login
-    users = User.query.filter_by(email=email).first()
-    if users and bcrypt.check_password_hash(users.password, password):
-        access_token = create_access_token(identity=users.id)
-        return jsonify({"access_token": access_token})
+    user = User.query.filter_by(email=email).first()
 
+    if not user or not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"message": "Invalid email or password"}), 401
 
+    access_token = create_access_token(identity=user.id)
+    return jsonify({"access_token": access_token, "user": {"id": user.id, "username": user.username, "email": user.email}}), 200
 
-    # If neither users nor coach found, return error
-    return jsonify({"message": "Invalid name, email, or password"}), 401
-
-
-# Get current user
-@app.route("/current_user", methods=["GET"])
+@app.route('/current_user', methods=['GET'])
 @jwt_required()
 def get_current_user():
-    current_user_id =  get_jwt_identity()
-    current_user = User.query.get(current_user_id)
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
 
-    if current_user:
-        return jsonify({"id":current_user.id, "name":current_user.username, "email":current_user.email}), 200
-    else:
-        jsonify({"error":"User not found"}), 404
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+
+    return jsonify({"id": user.id, "username": user.username, "email": user.email}), 200
+
 
 
 # Get all user
@@ -175,13 +188,47 @@ def delete_item(id):
     db.session.commit()
     return '', 204
 
+
 # If error
 @app.errorhandler(404)
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
 
+@app.route('/addorders', methods=['POST'])
+@jwt_required()
+def add_order():
+    data = request.get_json()
+    quantity = data.get('quantity', None)
+    status = data.get('status', 'pending')
+    item_ids = data.get('items', [])
 
+    if not quantity or not item_ids:
+        return jsonify({"message": "Quantity and items are required"}), 400
 
+    try:
+        user_id = get_jwt_identity()
+        new_order = Order(quantity=quantity, status=status, user_id=user_id)
+
+        for item_id in item_ids:
+            item = Item.query.get(item_id)
+            if item:
+                new_order.items.append(item)
+
+        db.session.add(new_order)
+        db.session.commit()
+
+        return jsonify({"message": "Order placed successfully", "order": {
+            "id": new_order.id,
+            "quantity": new_order.quantity,
+            "status": new_order.status,
+            "items": [{"id": item.id, "title": item.title, "description": item.description,
+                       "price": item.price, "category_id": item.category_id,
+                       "imageurl": item.imageurl} for item in new_order.items]
+        }}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": f"Failed to place order: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(port=5559, debug=True)

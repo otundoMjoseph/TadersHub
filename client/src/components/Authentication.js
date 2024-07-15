@@ -57,7 +57,18 @@ function Authentication({ onClose, onLoginSuccess }) {
             })
             .then(data => {
                 console.log('Signup successful:', data);
-                onLoginSuccess(data); // Pass user data to parent component
+    
+                // Resetting bio, avatar, and location to default values
+                const defaultUserDetails = {
+                    avatar: 'https://via.placeholder.com/150',
+                    username: data.user.username,
+                    email: data.user.email,
+                    location: 'Unknown',
+                    bio: 'No bio provided',
+                };
+    
+                // Pass the newly created user data to parent component
+                onLoginSuccess(defaultUserDetails);
                 onClose();
             })
             .catch(error => {
@@ -65,6 +76,7 @@ function Authentication({ onClose, onLoginSuccess }) {
                 setError(error.message || 'Signup failed');
             });
     };
+    
 
     const fetchUserData = (token) => {
         fetch('https://taders-backend-12.onrender.com/current_user', {
@@ -107,11 +119,11 @@ function Authentication({ onClose, onLoginSuccess }) {
                 </div>
                 {error && <div className="error-message">{error}</div>}
                 <div className="inputs">
-                    {action === 'Sign Up' ? (
+                    {action === 'Sign Up' && (
                         <div className="input">
                             <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
-                    ) : null}
+                    )}
 
                     <div className="input">
                         <input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -121,11 +133,11 @@ function Authentication({ onClose, onLoginSuccess }) {
                         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                 </div>
-                {action === 'Login' ? (
+                {action === 'Login' && (
                     <div className="forgot-password">
                         Forgot Password? <span>Click Here!</span>
                     </div>
-                ) : null}
+                )}
 
                 <div className="submit-container">
                     <div

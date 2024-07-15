@@ -14,6 +14,9 @@ flask-restful = "*"
 flask-cors = "*"
 faker = "*"
 importlib-resources = "*"
+flask-marshmallow = "*"
+flask-bcrypt = "*"
+flask-jwt-extended = "*"
 
 [requires]
 python_full_version = "3.8.13"

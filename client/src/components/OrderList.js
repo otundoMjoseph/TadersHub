@@ -3,29 +3,37 @@
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
 
+const fetchOrders = () => {
+  return fetch('https://taders-backend-12.onrender.com/orders')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch orders');
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Error fetching orders:', error);
+      throw error; // Rethrow the error for handling in components
+    });
+};
+
 function OrderList() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchOrders();
+    fetchOrders()
+      .then(data => {
+        setOrders(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching orders:', error);
+        setError(error);
+        setLoading(false);
+      });
   }, []);
-
-  const fetchOrders = async () => {
-    try {
-      const response = await fetch('https://taders-backend-12.onrender.com/orders');
-      if (!response.ok) {
-        throw new Error('Failed to fetch orders');
-      }
-      const data = await response.json();
-      setOrders(data);
-      setLoading(false);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-  };
 
   const renderOrders = () => {
     if (loading) {
