@@ -29,6 +29,8 @@ function Authentication({ onClose, onLoginSuccess }) {
         })
         .then(data => {
             console.log('Login successful:', data);
+            localStorage.setItem('token', data.token);
+            fetchUserData();
             onLoginSuccess();
             onClose();
         })
@@ -39,7 +41,7 @@ function Authentication({ onClose, onLoginSuccess }) {
     };
 
     const handleSignup = () => {
-        fetch('/api/signup', {
+        fetch('https://taders-backend-12.onrender.com/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +52,9 @@ function Authentication({ onClose, onLoginSuccess }) {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Signup failed');
+                return response.json().then(error => {
+                    throw new Error(error.message || 'Signup failed');
+                });
             }
         })
         .then(data => {
@@ -60,10 +64,34 @@ function Authentication({ onClose, onLoginSuccess }) {
         })
         .catch(error => {
             console.error('Error during signup:', error);
-            setError('Signup failed');
+            setError(error.message || 'Signup failed');
         });
     };
 
+    const fetchUserData = () => {
+        const token = localStorage.getItem('token');
+        fetch('https://taders-backend-12.onrender.com/current_user', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Add JWT token in the Authorization header
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch user data');
+            }
+        })
+        .then(data => {
+            console.log('User data:', data);
+            // Handle user data
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        });
+    };
 
     const switchAction = () => {
         setAction(action === 'Login' ? 'Sign Up' : 'Login');
