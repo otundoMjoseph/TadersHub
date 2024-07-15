@@ -59,18 +59,29 @@ This project is a full-stack web application that simulates an online marketplac
 
 1. **Clone the repository**:
 
+    ```bash
+    git clone <repository_url>
+    ```
+
 2. **Setup Backend**:
-- cd server
-- To install dependencies (`pipenv install pipenv shell`)
-- To start (`python server/app.py`)
+
+    ```bash
+    cd server
+    pipenv install
+    pipenv shell
+    python server/app.py
+    ```
 
 3. **Setup Frontend**:
-- To install dependencies(`npm install --prefix client`)
-- To start (`npm start --prefix client`)
+
+    ```bash
+    npm install --prefix client
+    npm start --prefix client
+    ```
 
 4. **Access the Application**:
-- Open your browser and go to `http://localhost:3000` to view the application
 
+    Open your browser and go to `http://localhost:3000` to view the application.
 
 ## Contributors
 
@@ -80,3 +91,48 @@ This project is a full-stack web application that simulates an online marketplac
 - Carl Ngovi
 - Adnan Victor
 - Kudzaishe Muzata
+
+# TadersHub
+
+TadersHub is a web application designed to manage items and customer feedback for a store. The app includes functionalities for user authentication, viewing categories and items, submitting feedback, and creating new items.
+
+## Features
+
+- **User Authentication**: Login and signup functionalities.
+- **Item Management**: View items and create new items.
+- **Customer Feedback**: Submit and view feedback from customers.
+- **Item Details**: View detailed information about each item.
+
+## Technologies Used
+
+- React
+- CSS
+- Fetch API
+
+## Installation
+
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/otundoMjoseph/TadersHub.git
+    ```
+
+2. **Navigate to the project directory**:
+
+    ```bash
+    cd TadersHub
+    ```
+
+3. **Install dependencies**:
+
+    ```bash
+    npm install --prefix client
+    ```
+
+4. **Start the development server**:
+
+    ```bash
+    npm start --prefix client
+    ```
+
+Enjoy building and enhancing your marketplace application!
