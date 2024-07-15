@@ -66,9 +66,7 @@ function Authentication({ onClose, onLoginSuccess }) {
                     location: 'Unknown',
                     bio: 'No bio provided',
                 };
-    
-                // Pass the newly created user data to parent component
-                onLoginSuccess(defaultUserDetails);
+                onLoginSuccess(defaultUserDetails); // Pass the newly created user data to parent component
                 onClose();
             })
             .catch(error => {
