@@ -52,7 +52,13 @@ const UserProfile = () => {
       .then(data => {
         setUserDetails(prevDetails => ({
           ...prevDetails,
-          username: data.name,
+          username: data.username,
+          email: data.email,
+          location: data.location,
+          bio: data.bio,
+        }));
+        localStorage.setItem('userDetails', JSON.stringify({
+          username: data.username,
           email: data.email,
           location: data.location,
           bio: data.bio,
@@ -116,9 +122,11 @@ const UserProfile = () => {
     setShowAuthPopup(false);
   };
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (user) => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userDetails', JSON.stringify(user));
+    setUserDetails(user);
     setShowAuthPopup(false);
     setShowProfileModal(true);
   };
@@ -127,6 +135,8 @@ const UserProfile = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('token'); // Clear token on logout
+    localStorage.removeItem('userDetails'); // Clear user details on logout
+    setUserDetails(defaultUserDetails);
     setShowProfileModal(false);
   };
 
