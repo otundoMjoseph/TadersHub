@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Taders-hub/static/css/main.4823c604.css",
+    "main.js": "/Taders-hub/static/js/main.2d75b06d.js",
+    "index.html": "/Taders-hub/index.html",
+    "main.4823c604.css.map": "/Taders-hub/static/css/main.4823c604.css.map",
+    "main.2d75b06d.js.map": "/Taders-hub/static/js/main.2d75b06d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4823c604.css",
+    "static/js/main.2d75b06d.js"
+  ]
+}
