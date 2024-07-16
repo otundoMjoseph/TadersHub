@@ -1,6 +1,7 @@
 # Marketplace Project
 
 This project is a full-stack web application that simulates an online marketplace, featuring items, categories, user authentication, orders, and feedback.
+The backend repository is https://github.com/carlngovi/Taders-Backend
 
 ## Technologies Used
 
